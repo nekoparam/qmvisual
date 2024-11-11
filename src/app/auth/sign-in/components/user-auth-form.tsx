@@ -2,7 +2,6 @@
 
 import { HTMLAttributes, useState } from 'react'
 import { useForm } from 'react-hook-form'
-// import { Link } from 'react-router-dom'
 import  Link  from 'next/link'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -16,8 +15,8 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Button } from './button'
-import { PasswordInput } from './password-input'
+import { Button } from '@/app/auth/components/button'
+import { PasswordInput } from '@/app/auth/components/password-input'
 import { cn } from '@/lib/utils'
 
 interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
