@@ -1,6 +1,21 @@
 {
     "version": "0.2.0",
     "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Next.js: Dev",
+            "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
+            "args": ["dev"],
+            "cwd": "${workspaceFolder}",
+            "protocol": "inspector",
+            "console": "integratedTerminal",
+            "env": {
+              "NODE_ENV": "development"
+            },
+            "sourceMaps": true,
+            "port": 3003
+          },
       {
         "name": "Next.js: debug server-side",
         "type": "node-terminal",
