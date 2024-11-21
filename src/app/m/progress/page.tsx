@@ -43,7 +43,7 @@ export default function ProgressPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 w-full overflow-x-hidden  dark:text-text-dark">
       <div className="fixed top-0 left-0 right-0 z-10 bg-white dark:bg-gray-900 border-b">
         <h1 className="px-4 py-3.5 text-xl font-medium flex items-center gap-2">
           <BarChart3 className="w-5 h-5" />
@@ -101,7 +101,7 @@ export default function ProgressPage() {
                   onClick={() => setSelectedDate(data.date)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap ${
                     selectedDate === data.date
-                      ? 'bg-purple-600 text-white'
+                      ? 'bg-purple-600 text-white dark:text-text-dark'
                       : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200'
                   }`}
                 >
@@ -138,7 +138,7 @@ export default function ProgressPage() {
 
           {/* 统计卡片 */}
           {selectedData && (
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-4 dark:text-text-dark">
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
                 <div className="flex items-center gap-2 mb-1">
                   <TrendingUp className="w-4 h-4 text-purple-500" />

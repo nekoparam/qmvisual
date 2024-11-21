@@ -15,7 +15,7 @@ export default function SettingsPage() {
   } = useSettingsStore()
 
   return (
-    <div className="w-full pt-3">
+    <div className="w-full pt-3 dark:text-text-dark">
       <div className="fixed top-0 left-0 right-0 z-10 backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border-b">
         <h1 className="px-4 py-3.5 text-xl font-medium flex items-center gap-2">
         <Settings className="w-5 h-5" />

@@ -36,7 +36,7 @@ export default function MobileLayout({
       </main>
       
       {/* Bottom Navigation */}
-      <nav className="border-t bg-white py-2 px-4">
+      <nav className="border-t bg-white dark:bg-gray-900 py-2 px-4">
         <div className="flex justify-between items-center max-w-md mx-auto">
           {navItems.map((item) => (
             <Link key={item.href} href={item.href} className="flex flex-col items-center p-2 relative">
