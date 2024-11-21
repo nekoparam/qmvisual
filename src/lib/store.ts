@@ -1,18 +1,27 @@
-import { create } from 'zustand';
-// import { v4 as uuid } from 'uuid';
-import { persist } from 'zustand/middleware';
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
-export type UserStore = {
-    email: string;
+interface SettingsState {
+  darkMode: boolean
+  notifications: boolean
+  autoPlay: boolean
+  toggleDarkMode: () => void
+  toggleNotifications: () => void
+  toggleAutoPlay: () => void
 }
 
-// Store for user
-export const useUserStore = create(persist<UserStore>(set => ({
-    // initial state
-    email: '',
-
-    setEmail: (email: string) => set({ email }),
-
-
-}),
- { name: 'user' }));
+export const useSettingsStore = create<SettingsState>()(
+  persist(
+    (set) => ({
+      darkMode: false,
+      notifications: false,
+      autoPlay: false,
+      toggleDarkMode: () => set((state) => ({ darkMode: !state.darkMode })),
+      toggleNotifications: () => set((state) => ({ notifications: !state.notifications })),
+      toggleAutoPlay: () => set((state) => ({ autoPlay: !state.autoPlay })),
+    }),
+    {
+      name: 'settings-storage',
+    }
+  )
+)

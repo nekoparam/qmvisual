@@ -5,6 +5,8 @@ import Link from "next/link"
 import { usePathname } from 'next/navigation'
 import { Inter } from 'next/font/google'
 import { Badge } from "@/components/ui/badge"
+import { useSettingsStore } from "@/lib/store"
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,6 +16,7 @@ export default function MobileLayout({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
+  const { darkMode } = useSettingsStore()
 
   // 这里我们模拟未复习的单词数量，实际应用中这应该从某个状态管理器或API获取
   const unreviewed = 5
@@ -27,8 +30,8 @@ export default function MobileLayout({
   ]
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
-      <main className="flex-1 overflow-auto flex">
+    <div className={`flex flex-col h-screen  bg-background ${darkMode ? 'dark' : ''}`}>
+      <main className="flex-1 overflow-auto flex w-full">
         {children}
       </main>
       

@@ -1,20 +1,29 @@
 "use client"
-
-import { useState } from "react"
+import { Settings } from "lucide-react"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
+import { useSettingsStore } from "@/lib/store"
 
 export default function SettingsPage() {
-  const [darkMode, setDarkMode] = useState(false)
-  const [notifications, setNotifications] = useState(false)
-  const [autoPlay, setAutoPlay] = useState(false)
+  const { 
+    darkMode, 
+    notifications, 
+    autoPlay, 
+    toggleDarkMode, 
+    toggleNotifications, 
+    toggleAutoPlay 
+  } = useSettingsStore()
 
   return (
-    <div className="w-full">
-      <h1 className="px-4 py-2 text-2xl font-bold">设置</h1>
-      
-      <div className="px-4 py-2">
-        <div className="rounded-lg border bg-white shadow-sm">
+    <div className="w-full pt-3">
+      <div className="fixed top-0 left-0 right-0 z-10 backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border-b">
+        <h1 className="px-4 py-3.5 text-xl font-medium flex items-center gap-2">
+        <Settings className="w-5 h-5" />
+          设置
+        </h1>
+      </div>
+      <div className="px-4 py-2 mt-[60px]">
+        <div className="rounded-lg border shadow-sm">
           <div className="border-b px-4 py-4">
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
@@ -26,7 +35,7 @@ export default function SettingsPage() {
               <Switch
                 id="dark-mode"
                 checked={darkMode}
-                onCheckedChange={setDarkMode}
+                onCheckedChange={toggleDarkMode}
               />
             </div>
           </div>
@@ -42,7 +51,7 @@ export default function SettingsPage() {
               <Switch
                 id="notifications"
                 checked={notifications}
-                onCheckedChange={setNotifications}
+                onCheckedChange={toggleNotifications}
               />
             </div>
           </div>
@@ -58,7 +67,7 @@ export default function SettingsPage() {
               <Switch
                 id="auto-play"
                 checked={autoPlay}
-                onCheckedChange={setAutoPlay}
+                onCheckedChange={toggleAutoPlay}
               />
             </div>
           </div>
