@@ -11,26 +11,46 @@ import { useSettingsStore } from "@/lib/store"
 
 const inter = Inter({ subsets: ['latin'] })
 
+/* Scaling 总有一些问题，先不用 */
 function ScalingProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
+    const isRequestingDesktopSite = () => {
+      // 检查是否是移动设备但请求了桌面版
+      const ua = navigator.userAgent;
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(ua);
+      const hasDesktopIdentifier = /Mozilla.*Windows/i.test(ua) || /Macintosh/i.test(ua);
+      
+      // 额外检查视口宽度是否接近屏幕宽度
+      const isViewportWide = Math.abs(window.screen.width - window.innerWidth) < 100;
+      
+      return !isMobile;
+    };
+
+
     const updateScale = () => {
-      const width = window.innerWidth
-      const height = window.innerHeight
-      const diagonal = Math.sqrt(width * width + height * height)
-      const baseScale = diagonal / Math.sqrt(390*390 + 844*844)
-      
-      // 限制最大缩放比例为1.3
-      const scale = Math.min(baseScale, 1.5)
-      
-      document.documentElement.style.setProperty('--app-scale', scale.toString())
-    }
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-    updateScale()
-    window.addEventListener('resize', updateScale)
-    return () => window.removeEventListener('resize', updateScale)
-  }, [])
+      // 只在请求桌面版时应用缩放
+      if (!isMobile) {
+        document.documentElement.style.setProperty('--app-scale', '1');
+        return;
+      }
 
-  return children
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const diagonal = Math.sqrt(width * width + height * height);
+      const baseScale = diagonal / Math.sqrt(390*390 + 844*844);
+      
+      const scale = Math.min(baseScale, 1.7);
+      document.documentElement.style.setProperty('--app-scale', scale.toString());
+    };
+
+    updateScale();
+    window.addEventListener('resize', updateScale);
+    return () => window.removeEventListener('resize', updateScale);
+  }, []);
+
+  return children;
 }
 
 export default function MobileLayout({
@@ -85,8 +105,9 @@ export default function MobileLayout({
 
   return (
     <div 
-      className={`flex flex-col h-screen  bg-background text-foreground ${darkMode ? 'dark' : ''}`}
-      style={{ minHeight: viewportHeight, display: 'flex', flexDirection: 'column' }}
+      className={`flex flex-col  fixed inset-0 bg-background text-foreground ${darkMode ? 'dark' : ''}`}
+      // style={{ minHeight: viewportHeight, display: 'flex', flexDirection: 'column' }}
+      style={{ height: viewportHeight }}
     >
       <main className="flex-1 overflow-auto flex w-full">
       {/* <ScalingProvider>{children}</ScalingProvider> */}
@@ -94,7 +115,7 @@ export default function MobileLayout({
       </main>
       
       {/* Bottom Navigation */}
-      <nav className="border-t bg-white dark:bg-gray-900 py-2 px-4">
+      <nav className="border-t bg-white dark:bg-gray-900 py-2 px-4 sticky bottom-0 left-0 right-0">
         <div className="flex justify-between items-center max-w-md mx-auto">
           {navItems.map((item) => (
             <Link key={item.href} href={item.href} className="flex flex-col items-center p-2 relative">

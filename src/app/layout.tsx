@@ -2,6 +2,7 @@
 import type { Metadata, Viewport } from "next";
 import { META_THEME_COLORS } from "@/config/site"
 import { ThemeProvider } from 'next-themes'
+import { headers } from 'next/headers' // 添加这个导入
 
 import localFont from "next/font/local";
 import "@/styles/globals.css";
@@ -26,7 +27,20 @@ export const viewport: Viewport = {
   themeColor: META_THEME_COLORS.light,
 }
 
-export default function RootLayout({
+// 创建一个新的服务端组件
+async function RootLayoutServer({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const headersList = await headers()
+  const userAgent = headersList.get('user-agent')
+  console.log('Server-side UA:', userAgent)
+  
+  return <RootLayout>{children}</RootLayout>
+}
+
+function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -42,3 +56,9 @@ export default function RootLayout({
     </html>
   );
 }
+
+
+const useServerComponent = process.env.NODE_ENV === 'development'
+console.log('Using server component:', useServerComponent)
+
+export default useServerComponent ? RootLayoutServer : RootLayout
