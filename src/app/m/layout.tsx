@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Clock, Settings, Grid, RefreshCw, Undo2 } from 'lucide-react'
 import Link from "next/link"
 import { usePathname } from 'next/navigation'
@@ -52,8 +52,42 @@ export default function MobileLayout({
     { href: "/m/settings", icon: Settings, label: "设置" },
   ]
 
+  const [viewportHeight, setViewportHeight] = useState('100vh')
+
+  useEffect(() => {
+    // Function to update viewport height
+    const updateViewportHeight = () => {
+      // Use dynamic viewport height if supported
+      if (CSS.supports('height: 100dvh')) {
+        setViewportHeight('100dvh')
+        return
+      }
+      
+      // Fallback for browsers that don't support dvh
+      const vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
+      setViewportHeight('calc(var(--vh, 1vh) * 100)')
+    }
+
+    // Initial update
+    updateViewportHeight()
+
+    // Update on resize and orientation change
+    window.addEventListener('resize', updateViewportHeight)
+    window.addEventListener('orientationchange', updateViewportHeight)
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', updateViewportHeight)
+      window.removeEventListener('orientationchange', updateViewportHeight)
+    }
+  }, [])
+
   return (
-    <div className={`flex flex-col h-screen  bg-background text-foreground ${darkMode ? 'dark' : ''}`}>
+    <div 
+      className={`flex flex-col h-screen  bg-background text-foreground ${darkMode ? 'dark' : ''}`}
+      style={{ minHeight: viewportHeight, display: 'flex', flexDirection: 'column' }}
+    >
       <main className="flex-1 overflow-auto flex w-full">
       {/* <ScalingProvider>{children}</ScalingProvider> */}
       {children}
