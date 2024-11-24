@@ -44,6 +44,25 @@ export default function ProgressPage() {
     }
   }
 
+  const handleDayClick = (day: Date | undefined) => {
+    if (!day || !dateRange) return;
+
+    // 如果已经选择了完整范围，重新开始选择
+    if (dateRange?.from && dateRange?.to) {
+      handleRangeSelect({ from: day, to: undefined });
+      return;
+    }
+
+    // 如果只有开始日期，正常继续选择结束日期
+    if (dateRange?.from && !dateRange?.to && day > dateRange.from) {
+      handleRangeSelect({ ...dateRange, to: day });
+      return;
+    }
+
+    // 开始新的选择
+    handleRangeSelect({ from: day, to: undefined });
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 w-full overflow-x-hidden  dark:text-text-dark">
       <div className="fixed top-0 left-0 right-0 z-10 bg-white dark:bg-gray-900 border-b">
@@ -128,7 +147,8 @@ export default function ProgressPage() {
                     <Calendar
                       mode="range"
                       selected={dateRange}
-                      onSelect={handleRangeSelect}
+                      // onSelect={handleRangeSelect}
+                      onDayClick={handleDayClick}
                       numberOfMonths={1}
                       defaultMonth={dateRange?.from}
                     />
