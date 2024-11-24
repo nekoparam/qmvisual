@@ -7,6 +7,8 @@ import { DayPicker } from "react-day-picker"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 
+import { useSettingsStore } from "@/lib/store"
+
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
 function Calendar({
@@ -15,8 +17,10 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
+  const { darkMode } = useSettingsStore()
+
   return (
-    <div className="flex justify-center">
+    <div className={`flex justify-center ${darkMode ? 'dark' : ''}`}>
       <DayPicker
         showOutsideDays={showOutsideDays}
         className={cn("p-3", className)}

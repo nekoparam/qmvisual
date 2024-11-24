@@ -1,5 +1,7 @@
+
 import type { Metadata, Viewport } from "next";
 import { META_THEME_COLORS } from "@/config/site"
+import { ThemeProvider } from 'next-themes'
 
 import localFont from "next/font/local";
 import "@/styles/globals.css";
@@ -29,10 +31,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
-    <html lang="zh-CN">
+    <html lang="zh-CN" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+      </ThemeProvider>
       </body>
     </html>
   );

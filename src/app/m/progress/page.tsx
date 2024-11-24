@@ -13,6 +13,8 @@ import {
 } from "./components/sheet"
 import { Calendar } from "./components/calendar"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { DateRange } from "react-day-picker"
+
 
 
 // 模拟的学习记录数据
@@ -26,18 +28,18 @@ const learningData = [
 
 export default function ProgressPage() {
   const [selectedDate, setSelectedDate] = useState(learningData[0].date)
-  const [dateRange, setDateRange] = useState<[Date | undefined, Date | undefined]>([
-    new Date(2023, 4, 16),
-    new Date(2023, 4, 20)
-  ])
+  const [dateRange, setDateRange] = useState<DateRange | undefined>({
+    from: new Date(2023, 4, 16),
+    to: new Date(2023, 4, 20)
+  })
   const [isSheetOpen, setIsSheetOpen] = useState(false)
   
   const selectedData = learningData.find(data => data.date === selectedDate)
   const chartData = learningData.slice().reverse()
 
-  const handleRangeSelect = (range: [Date | undefined, Date | undefined]) => {
+  const handleRangeSelect = (range: DateRange | undefined) => {
     setDateRange(range)
-    if (range[0] && range[1]) {
+    if (range?.from && range?.to) {
       setIsSheetOpen(false)
     }
   }
@@ -118,7 +120,7 @@ export default function ProgressPage() {
                 </button>
               </SheetTrigger>
               <SheetContent side="bottom" className="flex items-center justify-center">
-                <div className="w-full max-w-sm">
+                <div className="w-full max-w-sm dark:text-text-dark">
                   <SheetHeader>
                     <SheetTitle>选择日期范围</SheetTitle>
                   </SheetHeader>
@@ -128,7 +130,7 @@ export default function ProgressPage() {
                       selected={dateRange}
                       onSelect={handleRangeSelect}
                       numberOfMonths={1}
-                      defaultMonth={dateRange[0]}
+                      defaultMonth={dateRange?.from}
                     />
                   </div>
                 </div>

@@ -30,7 +30,7 @@ export default function MobileLayout({
   ]
 
   return (
-    <div className={`flex flex-col h-screen  bg-background ${darkMode ? 'dark' : ''}`}>
+    <div className={`flex flex-col h-screen  bg-background text-foreground ${darkMode ? 'dark' : ''}`}>
       <main className="flex-1 overflow-auto flex w-full">
         {children}
       </main>
