@@ -72,7 +72,7 @@ export default function ProgressPage() {
         </h1>
       </div>
 
-      <div className="flex-1 mt-[52px] pb-16">
+      <div className="flex-1 mt-16 pb-16">
         <div className="p-3 space-y-4">
           {/* 趋势图 */}
           <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm">
@@ -81,8 +81,16 @@ export default function ProgressPage() {
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
-                  <XAxis dataKey="date" fontSize={12} />
-                  <YAxis fontSize={12} />
+                  <XAxis
+                    dataKey="date"
+                    fontSize={12} 
+                    domain={[0, 'auto']}  // 添加这行来确保正确缩放
+                    />
+                  <YAxis 
+                    fontSize={12}
+                    domain={[0, 'auto']}  // 添加这行来确保正确缩放
+                    allowDataOverflow={false}  // 防止数据溢出
+                    />
                   <Tooltip />
                   <Line 
                     type="monotone" 

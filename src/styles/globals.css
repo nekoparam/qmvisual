@@ -9,6 +9,9 @@ body {
 
 @layer base {
   :root {
+    --app-scale: 1;
+    --font-scale: calc(var(--app-scale) * 1rem);
+
     --background: 0 0% 100%;
     --foreground: 224 71.4% 4.1%;
     --muted: 220 14.3% 95.9%;
@@ -62,5 +65,8 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+  html {
+    font-size: var(--font-scale);
   }
 }

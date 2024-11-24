@@ -13,6 +13,21 @@ module.exports = {
       },
     },
     extend: {
+      fontSize: {
+        'xs': 'calc(0.75 * var(--font-scale))',
+        'sm': 'calc(0.875 * var(--font-scale))',
+        'base': 'calc(1 * var(--font-scale))',
+        'lg': 'calc(1.125 * var(--font-scale))',
+        'xl': 'calc(1.25 * var(--font-scale))',
+        '2xl': 'calc(1.5 * var(--font-scale))',
+        '3xl': 'calc(1.875 * var(--font-scale))',
+        '4xl': 'calc(2.25 * var(--font-scale))',
+        '5xl': 'calc(3 * var(--font-scale))',
+        '6xl': 'calc(3.75 * var(--font-scale))',
+        '7xl': 'calc(4.5 * var(--font-scale))',
+        '8xl': 'calc(6 * var(--font-scale))',
+        '9xl': 'calc(8 * var(--font-scale))',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

@@ -22,7 +22,7 @@ export default function SettingsPage() {
           设置
         </h1>
       </div>
-      <div className="px-4 py-2 mt-[60px]">
+      <div className="px-4 py-2 mt-16">
         <div className="rounded-lg border shadow-sm">
           <div className="border-b px-4 py-4">
             <div className="flex items-center justify-between">

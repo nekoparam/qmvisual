@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from "react"
 import { Clock, Settings, Grid, RefreshCw, Undo2 } from 'lucide-react'
 import Link from "next/link"
 import { usePathname } from 'next/navigation'
@@ -9,6 +10,28 @@ import { useSettingsStore } from "@/lib/store"
 
 
 const inter = Inter({ subsets: ['latin'] })
+
+function ScalingProvider({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    const updateScale = () => {
+      const width = window.innerWidth
+      const height = window.innerHeight
+      const diagonal = Math.sqrt(width * width + height * height)
+      const baseScale = diagonal / Math.sqrt(390*390 + 844*844)
+      
+      // 限制最大缩放比例为1.3
+      const scale = Math.min(baseScale, 1.5)
+      
+      document.documentElement.style.setProperty('--app-scale', scale.toString())
+    }
+
+    updateScale()
+    window.addEventListener('resize', updateScale)
+    return () => window.removeEventListener('resize', updateScale)
+  }, [])
+
+  return children
+}
 
 export default function MobileLayout({
   children,
@@ -22,7 +45,7 @@ export default function MobileLayout({
   const unreviewed = 5
 
   const navItems = [
-    { href: "/m/list", icon: Grid, label: "列表" },
+    { href: "/m/overview", icon: Grid, label: "概览" },
     { href: "/m/review", icon: Undo2, label: "复习", badge: unreviewed },
     { href: "/m/word", icon: Clock, label: "单词打卡" },
     { href: "/m/progress", icon: RefreshCw, label: "学习记录" },
@@ -32,7 +55,8 @@ export default function MobileLayout({
   return (
     <div className={`flex flex-col h-screen  bg-background text-foreground ${darkMode ? 'dark' : ''}`}>
       <main className="flex-1 overflow-auto flex w-full">
-        {children}
+      {/* <ScalingProvider>{children}</ScalingProvider> */}
+      {children}
       </main>
       
       {/* Bottom Navigation */}
