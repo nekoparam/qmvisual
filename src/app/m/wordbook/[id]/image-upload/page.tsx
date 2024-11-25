@@ -8,7 +8,10 @@ async function getWordbookDetails(id: string) {
   }
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
+type Params = Promise<{id: string}>
+
+export default async function Page(props: { params: Params }) {
+  const params = await props.params;
   const wordbook = await getWordbookDetails(params.id)
   
   return <ImageUploadForm wordbook={wordbook} />
