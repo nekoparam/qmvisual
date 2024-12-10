@@ -11,6 +11,14 @@ export const routes: RouteItem[] = [
     title: "首页",
     children: [
       {
+        path: "/dashboard",
+        title: "仪表盘",
+      },
+      {
+        path: "/chat",
+        title: "聊天",
+      },
+      {
         path: "/documents",
         title: "文档",
         children: [
@@ -52,6 +60,9 @@ export function findRouteByPath(path: string): RouteItem[] {
   
   // Always add home page
   result.push(routes[0])
+  if (routes[0].children) {
+    currentRoutes = routes[0].children
+  }
   
   for (const segment of segments) {
     currentPath += "/" + segment
@@ -61,7 +72,8 @@ export function findRouteByPath(path: string): RouteItem[] {
       // Remove trailing slash if exists
       const routePath = route.path.endsWith("/") 
         ? route.path.slice(0, -1) 
-        : route.path
+        : route.path;
+
       return routePath === currentPath
     })
     

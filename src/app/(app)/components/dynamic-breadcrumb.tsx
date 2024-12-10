@@ -1,5 +1,6 @@
 "use client"
 
+import React from 'react';
 import { usePathname, useRouter } from "next/navigation"
 import {
   Breadcrumb,
@@ -35,19 +36,16 @@ export function DynamicBreadcrumb() {
           const isLast = index === displayRoutes.length - 1
 
           return (
-            <>
+            <React.Fragment key={route.path}>
               {index > 0 && (
                 <BreadcrumbSeparator className="hidden md:block" />
               )}
               {shouldShowEllipsis && index === 1 && (
-                <>
-                  <BreadcrumbItem>
-                    <BreadcrumbEllipsis />
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator className="hidden md:block" />
-                </>
+                <BreadcrumbItem key="ellipsis">
+                  <BreadcrumbEllipsis />
+                </BreadcrumbItem>
               )}
-              <BreadcrumbItem key={route.path}>
+              <BreadcrumbItem>
                 {isLast ? (
                   <BreadcrumbPage>{route.title}</BreadcrumbPage>
                 ) : (
@@ -64,10 +62,11 @@ export function DynamicBreadcrumb() {
                   </BreadcrumbLink>
                 )}
               </BreadcrumbItem>
-            </>
+            </React.Fragment>
           )
         })}
       </BreadcrumbList>
     </Breadcrumb>
   )
 }
+
