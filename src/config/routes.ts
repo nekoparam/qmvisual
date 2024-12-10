@@ -79,7 +79,7 @@ export function findRouteByPath(path: string): RouteItem[] {
     
     if (matchingRoute) {
       result.push(matchingRoute)
-      currentRoutes = matchingRoute.children
+      currentRoutes = matchingRoute.children || []
     } else {
       // 如果找不到匹配的路由，添加一个未知路由项
       foundAll = false

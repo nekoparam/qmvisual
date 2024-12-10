@@ -26,7 +26,7 @@ const mockMessages: Message[] = [
   { id: 5, sender: "用户3", senderId: "user3", content: "同意！我们互相鼓励，一起进步！", timestamp: "09:20", isSelf: false },
 ]
 
-export default function ChatPage({ params }: { params: { id: string } }) {
+export default function ChatPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter()
   const [messages, setMessages] = useState<Message[]>(mockMessages)
   const [newMessage, setNewMessage] = useState('')

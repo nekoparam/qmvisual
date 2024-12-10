@@ -88,7 +88,7 @@ export function ChatHeader({ title, onBack }: ChatHeaderProps) {
   const [isPeopleMenuOpen, setIsPeopleMenuOpen] = useState(false)
 
   const handleAddPeople = (data: {
-    identifier: string
+    userIds: string[]
     historyOption: "none" | "partial" | "all"
     days?: number
   }) => {

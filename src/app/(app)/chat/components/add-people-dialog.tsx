@@ -25,7 +25,7 @@ const users: User[] = [
     name: "Arvin Liu",
     username: "ARVIN.LIU",
     role: "Senior Staff Engineer",
-    avatar: null,
+    avatar: undefined,
   },
   {
     id: "2",
@@ -33,7 +33,7 @@ const users: User[] = [
     username: "ALICE.ZHAO",
     isExternal: true,
     role: "Staff Engineer",
-    avatar: null,
+    avatar: undefined,
   },
   {
     id: "3",
@@ -47,7 +47,7 @@ const users: User[] = [
     name: "小寒",
     username: "xiaohan",
     role: "",
-    avatar: null,
+    avatar: undefined,
   },
 ]
 
