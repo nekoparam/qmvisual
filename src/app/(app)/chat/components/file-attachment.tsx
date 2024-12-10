@@ -21,11 +21,12 @@ export function FileAttachment({ filename, size, uploadedAt, url, className }: F
       <div
         onClick={() => setIsModalOpen(true)}
         className={cn(
-          "flex flex-col gap-1 rounded-md border bg-white p-2 cursor-pointer hover:bg-gray-50 transition-colors",
+          "flex flex-col gap-1 rounded-md border p-2 cursor-pointer transition-colors",
+          "bg-white hover:bg-gray-50",
           className
         )}
       >
-        <span className="text-sm font-medium">{filename}</span>
+        <span className="text-sm font-medium text-foreground">{filename}</span>
         <span className="text-xs text-muted-foreground">{formattedSize}</span>
       </div>
 
