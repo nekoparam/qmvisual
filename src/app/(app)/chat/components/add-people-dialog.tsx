@@ -188,7 +188,7 @@ export function AddPeopleDialog({ isOpen, onClose, onAdd }: AddPeopleDialogProps
           >
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="none" id="none" />
-              <Label htmlFor="none">Don't include chat history</Label>
+              <Label htmlFor="none">Don&apos;t include chat history</Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="partial" id="partial" />
