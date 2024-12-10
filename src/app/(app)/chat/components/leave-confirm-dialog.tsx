@@ -24,7 +24,7 @@ export function LeaveConfirmDialog({ isOpen, onClose, onConfirm }: LeaveConfirmD
         <AlertDialogHeader>
           <AlertDialogTitle>Leave chat?</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to leave this chat? You won't be able to rejoin unless someone adds you back.
+          Are you sure you want to leave this chat? You won&apos;t be able to rejoin unless someone adds you back.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
