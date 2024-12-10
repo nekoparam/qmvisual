@@ -58,7 +58,7 @@ interface Attachment {
       attachments: [
         {
           type: 'image',
-          url: '/placeholder.svg',
+          url: '/placeholder.png',
           filename: 'design.png',
           size: 1024000, // 1MB
           uploadedAt: '2024-03-19 14:50:00'
