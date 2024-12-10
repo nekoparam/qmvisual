@@ -10,68 +10,104 @@ interface ChatItem {
   lastMessage: string
   timestamp: string
   unread?: number
+  isPinned?: boolean
+  isActive?: boolean
+  initial: string
 }
 
 const chats: ChatItem[] = [
   {
     id: "1",
-    name: "教 zzj 一点 wwl",
-    lastMessage: "为啥 figma，直接 code 了都",
+    name: "小寒角色开发讨论",
+    initial: "小",
+    lastMessage: "项目终于新建文件夹了，一切顺利",
     timestamp: "14:49",
     unread: 2,
+    isPinned: true,
+    isActive: true,
   },
   {
     id: "2",
     name: "纳斯达克韭菜交流群",
-    lastMessage: "to code 都有了，to figma 应该没卵用",
+    initial: "纳",
+    lastMessage: "YINN 要归零了",
     timestamp: "14:49",
   },
   {
     id: "3",
     name: "quantmew 柚子群",
-    lastMessage: "现在我就是给的 v0",
+    initial: "q",
+    lastMessage: "我为什么天天亏钱",
     timestamp: "14:48",
     unread: 1,
   },
 ]
 
 export function ChatList() {
+  const pinnedChats = chats.filter(chat => chat.isPinned)
+  const recentChats = chats.filter(chat => !chat.isPinned)
+
   return (
     <ScrollArea className="h-[calc(100vh-4rem)]">
-      <div className="flex flex-col gap-1 p-2">
-        {chats.map((chat) => (
-          <Button
-            key={chat.id}
-            variant="ghost"
-            className={cn(
-              "h-auto justify-start gap-2 p-2",
-              "hover:bg-accent hover:text-accent-foreground"
-            )}
-          >
-            <Avatar className="size-12">
-              <AvatarImage src={chat.avatar} alt={chat.name} />
-              <AvatarFallback>{chat.name[0]}</AvatarFallback>
-            </Avatar>
-            <div className="flex flex-1 flex-col items-start gap-1 overflow-hidden">
-              <div className="flex w-full items-center justify-between gap-2">
-                <span className="font-medium">{chat.name}</span>
-                <span className="text-xs text-muted-foreground">
-                  {chat.timestamp}
-                </span>
-              </div>
-              <span className="w-full truncate text-sm text-muted-foreground">
-                {chat.lastMessage}
-              </span>
+      <div className="flex flex-col p-2">
+        {pinnedChats.length > 0 && (
+          <div className="space-y-1">
+            <div className="px-2 py-1.5">
+              <span className="text-sm font-medium text-muted-foreground">Pinned</span>
             </div>
-            {chat.unread && (
-              <span className="flex size-5 items-center justify-center rounded-full bg-primary text-xs text-primary-foreground">
-                {chat.unread}
-              </span>
-            )}
-          </Button>
-        ))}
+            {pinnedChats.map((chat) => (
+              <ChatItem key={chat.id} chat={chat} />
+            ))}
+          </div>
+        )}
+        
+        <div className="space-y-1">
+          <div className="px-2 py-1.5">
+            <span className="text-sm font-medium text-muted-foreground">Recent</span>
+          </div>
+          {recentChats.map((chat) => (
+            <ChatItem key={chat.id} chat={chat} />
+          ))}
+        </div>
       </div>
     </ScrollArea>
+  )
+}
+
+function ChatItem({ chat }: { chat: ChatItem }) {
+  return (
+    <div className="relative">
+      <Button
+        variant="ghost"
+        className={cn(
+          "h-auto w-full justify-start gap-3 p-2",
+          "hover:bg-accent/50",
+          chat.isActive ? "bg-accent/50" : "bg-accent/10"
+        )}
+      >
+        <Avatar className="h-10 w-10">
+          <AvatarFallback className="bg-muted">
+            {chat.initial}
+          </AvatarFallback>
+        </Avatar>
+        <div className="flex flex-1 flex-col items-start">
+          <div className="flex w-full items-center justify-between">
+            <span className="text-sm font-medium">{chat.name}</span>
+            <span className="text-xs text-muted-foreground">{chat.timestamp}</span>
+          </div>
+          <span className="text-sm text-muted-foreground line-clamp-1">
+            {chat.lastMessage}
+          </span>
+        </div>
+      </Button>
+      {chat.unread && (
+        <div className="absolute bottom-2 right-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary">
+          <span className="text-xs font-medium text-primary-foreground">
+            {chat.unread}
+          </span>
+        </div>
+      )}
+    </div>
   )
 }
 

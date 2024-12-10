@@ -107,13 +107,18 @@ export function ChatHeader({ title, onBack }: ChatHeaderProps) {
       <div className="flex flex-col border-b">
         <div className="flex items-center justify-between p-4">
           <div className="flex items-center gap-4">
-            <Button 
+            {
+                /*
+                返回按钮暂时不知道有什么用，先注释掉
+                 */
+            }
+            {/* <Button 
               variant="ghost" 
               size="icon"
               onClick={onBack}
             >
               <ArrowLeft className="h-5 w-5" />
-            </Button>
+            </Button> */}
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs text-primary-foreground">
                 {title[0]}
