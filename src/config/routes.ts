@@ -15,6 +15,16 @@ export const routes: RouteItem[] = [
         title: "仪表盘",
       },
       {
+        path: "/strategy",
+        title: "策略",
+        children: [
+          {
+            path: "/strategy/list",
+            title: "策略列表",
+          },
+        ],
+      },
+      {
         path: "/chat",
         title: "聊天",
       },

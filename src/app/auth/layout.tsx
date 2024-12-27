@@ -4,8 +4,8 @@ import { UserAuthForm } from '@/app/auth/sign-in/components/user-auth-form'
 
 
 export const metadata: Metadata = {
-    title: 'CAOWORD.me 用户登录',
-    description: '草窝单词用户登录'
+    title: 'suoha.dev',
+    description: '发财'
   };
 
 
@@ -37,7 +37,7 @@ export default function AuthLayout({
               </svg>
   
   
-              <h1 className='text-xl font-medium'>CAOWORD.me</h1>
+              <h1 className='text-xl font-medium'>suoha.DEV</h1>
             </div>
             <Card className='p-6'>
             {children}

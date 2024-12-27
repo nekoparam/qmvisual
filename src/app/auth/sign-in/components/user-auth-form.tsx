@@ -18,6 +18,9 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/app/auth/components/button'
 import { PasswordInput } from '@/app/auth/components/password-input'
 import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
+import { signIn } from '@/lib/services/auth.service'
+import { toast } from 'sonner'
 
 interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -38,6 +41,7 @@ const formSchema = z.object({
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -47,13 +51,23 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     },
   })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    setIsLoading(true)
-    console.log(data)
-
-    setTimeout(() => {
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    try {
+      setIsLoading(true)
+      const response = await signIn(data)
+      
+      if (response.success) {
+        toast.success('登录成功')
+        router.push('/dashboard') // 或其他你想要跳转的页面
+      } else {
+        toast.error(response.message || '登录失败，请重试')
+      }
+    } catch (error) {
+      toast.error('登录失败，请检查网络连接')
+      console.error(error)
+    } finally {
       setIsLoading(false)
-    }, 3000)
+    }
   }
 
   return (

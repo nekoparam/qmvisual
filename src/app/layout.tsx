@@ -19,8 +19,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "CAOWORD.me 草窝单词",
-  description: "为了考试而背单词速刷的单词学习平台",
+  title: "Suoha.dev 梭哈",
+  description: "发财",
 };
 
 export const viewport: Viewport = {
